@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
     <title>Resultados</title>
 </head>
 <body>
@@ -10,6 +12,29 @@
 
     <p>DNI: {{ dni }}</p>
     <p>Usuario: {{ usuario }}</p>
-    <a href="{{ url_for('index') }}">Inicio</a>
+    <a href="{{ url_for('index') }}">Inicio</a><br>
+    {{ mensaje }}
+    <div>
+        <h2>Lista de clientes</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>DNI</th>
+                    <th>Usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in clientes %}
+                <tr>
+                    <td>{{ cliente[0] }}</td>
+                    <td>{{ cliente[1] }}</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+
+
+        </table>
+    </div>
 </body>
 </html>
