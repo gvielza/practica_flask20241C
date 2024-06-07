@@ -19,3 +19,12 @@ def resultados():
     conexion.cerrar_conexion()
     mensaje="Se guardo exitosamente en la base de datos"
     return render_template('resultados.html', dni=dni, usuario=usuario, mensaje=mensaje,clientes=clientes)
+
+@app.route("/borrar")
+def borrar():
+    dni=request.args.get('borrar')
+    print(dni)
+    conexion=Conexion('base_datos/usuarios.db')
+    conexion.eliminar_cliente(dni)
+    clientes=conexion.mostrar_clientes()
+    return render_template("resultados.html",clientes=clientes)
