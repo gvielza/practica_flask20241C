@@ -7,24 +7,39 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/resultados')
+@app.route('/resultados', methods=['POST','GET'])
 def resultados():
     dni = request.args.get('dni')
     usuario = request.args.get('usuario')
     contrasenna=request.args.get('password')
     conexion=Conexion('base_datos/usuarios.db')
     conexion.crear_tabla_cliente()
-    conexion.agregar_cliente(dni,usuario,contrasenna)
-    clientes=conexion.mostrar_clientes()
-    conexion.cerrar_conexion()
-    mensaje="Se guardo exitosamente en la base de datos"
-    return render_template('resultados.html', dni=dni, usuario=usuario, mensaje=mensaje,clientes=clientes)
+    if dni!=None and usuario!=None and contrasenna!=None:
+        conexion.agregar_cliente(dni,usuario,contrasenna)
+        clientes=conexion.mostrar_clientes()
+        conexion.cerrar_conexion()
+        
+        return render_template('resultados.html', dni=dni, usuario=usuario,clientes=clientes)
 
-@app.route("/borrar")
-def borrar():
-    dni=request.args.get('borrar')
-    print(dni)
+
+    return render_template('index.html')        
+    
+    
+    
+    
+    
+    
+    
+
+@app.route("/eliminar",methods=['POST','GET'])
+def eliminar():
+    eliminar=request.args.get('eliminar')
+    editar=request.args.get('editar')
+    print(editar)
+    print(eliminar)
     conexion=Conexion('base_datos/usuarios.db')
-    conexion.eliminar_cliente(dni)
+    if(eliminar!=None):        
+        conexion.eliminar_cliente(eliminar)   
+    
     clientes=conexion.mostrar_clientes()
     return render_template("resultados.html",clientes=clientes)

@@ -52,4 +52,10 @@ body, html {
   input[type="submit"]:hover {
     background-color: #45a049;
   }
-  
+  .resultados{
+    padding-top: 20px;
+  }
+#form_r{
+  padding: 0px;
+  display: flex;
+}
