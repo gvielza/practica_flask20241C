@@ -20,9 +20,25 @@ def resultados():
         conexion.cerrar_conexion()
         
         return render_template('resultados.html', dni=dni, usuario=usuario,clientes=clientes)
+    return render_template('index.html')    
 
+@app.route("/editar/<id>", methods=['POST','GET'])
+def editar(id):
+    conexion=Conexion('base_datos/usuarios.db')
+    cliente=conexion.obtener_cliente_x_id(id)
+    conexion.cerrar_conexion
+    return render_template('editar.html', cliente=cliente)
 
-    return render_template('index.html')        
+@app.route("/actualizar/<dni>", methods=['POST','GET'])
+def actualizar(dni):
+    usuario=request.form.get('usuario')
+    print("udiasoo"+usuario)
+    contrasenna=request.form.get('password')
+    conexion=Conexion('base_datos/usuarios.db')
+    conexion.editar_cliente(dni,usuario,contrasenna)  
+    clientes=conexion.mostrar_clientes()
+    return render_template('resultados.html', clientes=clientes) 
+
     
     
     

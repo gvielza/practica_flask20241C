@@ -20,8 +20,8 @@ class Conexion:
 
   def editar_cliente(self, dni, usuario, contrasenna):
     self.cursor.execute(
-        "UPDATE cliente SET dni=?, usuario=?, contrasenna=? WHERE contrasenna=?",
-        (dni, usuario, contrasenna, dni))
+        "UPDATE clientes SET dni=?, usuario=?, contrasenna=? WHERE dni=?",
+        (dni, usuario, contrasenna,dni))
     self.conexion.commit()
 
   def mostrar_clientes(self):
@@ -32,6 +32,11 @@ class Conexion:
   def eliminar_cliente(self, dni):
     self.cursor.execute("DELETE FROM clientes WHERE dni=?", (dni, ))
     self.conexion.commit()
+
+  def obtener_cliente_x_id(self,id):
+    self.cursor.execute("SELECT * FROM clientes WHERE dni=?", (id,))
+    cliente=self.cursor.fetchone()
+    return cliente
 
   def cerrar_conexion(self):
     self.cursor.close()
